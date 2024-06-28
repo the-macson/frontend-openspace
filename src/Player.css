@@ -18,8 +18,6 @@ body {
 }
 
 .sidebar {
-  /* width: 300px; */
-  /* background: #181818; */
   color: white;
   padding: 20px 10px;
   width: 25%;
@@ -31,7 +29,6 @@ body {
 
 .sidebar .menu button {
   display: block;
-  /* width: 100%; */
   background: none;
   border: none;
   color: white;
@@ -45,7 +42,6 @@ body {
 }
 
 .sidebar input {
-  /* width: 100%; */
   padding: 10px;
   margin: 20px 0;
   border: none;
@@ -54,7 +50,6 @@ body {
 
 .song-list {
   overflow-y: auto;
-  /* height: calc(100vh - 200px); */
 }
 
 .song-item {
@@ -63,12 +58,10 @@ body {
   padding: 15px 10px;
   cursor: pointer;
   border-radius: 5px;
-  /* justify-content: space-between; */
-  /* padding: 10px 0; */
 }
 
 .song-item:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 .song-item span {
@@ -82,7 +75,6 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  /* background: #121212; */
   color: white;
 }
 
@@ -94,11 +86,6 @@ body {
 .main p {
   font-size: 1.2rem;
   margin: 10px 0;
-}
-
-.main img {
-  max-width: 300px;
-  margin: 20px 0;
 }
 
 .controls {
@@ -128,7 +115,7 @@ body {
 
 .menu {
   display: flex;
-  gap: 28px;
+  gap: 18px;
   margin-top: 10px;
   padding: 0 10px;
 }
@@ -136,6 +123,10 @@ body {
   font-size: 24px;
   font-weight: 700;
   cursor: pointer;
+}
+
+.menu > div:nth-child(2) {
+  opacity: 0.5;
 }
 
 input[type="text"] {
@@ -206,11 +197,6 @@ input:focus {
   opacity: 0.6;
 }
 
-.main > div > img {
-  width: 100%;
-  max-width: 500px;
-  margin: 20px 0;
-}
 .rhap_container {
   background: transparent !important;
   padding: 0 !important;
@@ -261,7 +247,7 @@ input:focus {
   height: 30px;
 }
 
-.rhap_button-clear  > svg {
+.rhap_button-clear > svg {
   width: 30px;
   height: 30px;
 }
@@ -276,4 +262,96 @@ input:focus {
   gap: 20px;
   height: 40px;
   width: 100%;
+}
+.musicImg {
+  width: 480px;
+  height: 510px;
+  border-radius: 10px;
+}
+
+.leftSidebarBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.sidebar_1 {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .player {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    display: none;
+  }
+
+  .main {
+    padding: 0px 20px 30px 20px;
+    justify-content: flex-end;
+  }
+  .leftSidebar {
+    flex-direction: row;
+  }
+  .leftSidebarBox {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 100%;
+  }
+  .sidebar_1 {
+    display: block;
+    margin-top: 50px;
+  }
+  .musicImg {
+    max-width: 400px;
+    width: 100%;
+    height: 540px;
+  }
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+  }
+
+  .overlay.show {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .bottom-sheet {
+    width: 100%;
+    height: 100%;
+    max-width: 600px;
+    border-radius: 16px 16px 0 0;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    padding: 16px;
+  }
+}
+
+.skeleton-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 10px;
+}
+
+.skeleton-item {
+  width: 100%;
+  height: 50px;
+  background: #e0e0e0;
+  border-radius: 4px;
 }
