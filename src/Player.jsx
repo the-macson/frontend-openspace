@@ -4,14 +4,21 @@ import albumCover from "./../public/Cover.png"; // replace with the actual path 
 import logo from "../public/Logo.png";
 import Profile from "../public/Profile.png";
 import AudioPlayer from "react-h5-audio-player";
-import Play from "../public/Frame.png";
-import Volume from "../public/Frame (3).png";
+import Play from "../public/play.png";
+import Volume from "../public/volume.png";
+import Next from "../public/next.png";
+import Prev from "../public/previous.png";
+import Three from "../public/three.png";
+import Pause from "../public/pause.png";
 
 import "react-h5-audio-player/lib/styles.css";
 
 const Player = () => {
   const [songList, setSongList] = useState([]);
   const [currentSong, setCurrentSong] = useState(null);
+  const [songIdx, setSongIdx] = useState(0);
+  const playerRef = React.createRef();
+  const [isPlaying, setIsPlaying] = useState(false);
   const songs = [
     { title: "Starboy", artist: "The Weeknd", duration: "4:16" },
     { title: "Demons", artist: "Imagine Dragons", duration: "5:24" },
@@ -74,6 +81,7 @@ const Player = () => {
                 key={index}
                 onClick={() => {
                   setCurrentSong(song);
+                  setSongIdx(index);
                 }}
               >
                 <img
@@ -91,8 +99,8 @@ const Player = () => {
       </div>
       <div className="main">
         <div>
-          <h2>Viva La Vida</h2>
-          <p>Coldplay</p>
+          <h2>{currentSong?.name}</h2>
+          <p>{currentSong?.artist}</p>
           <img
             src={`https://cms.samespace.com/assets/${currentSong?.cover}`}
             alt="Viva La Vida"
@@ -106,9 +114,93 @@ const Player = () => {
           <div className="controls">
             <AudioPlayer
               autoPlay
+              ref={playerRef}
+              showSkipControls={true}
               showJumpControls={false}
+              onEnded={() => {
+                if (songIdx < songList.length - 1) {
+                  setCurrentSong(songList[songIdx + 1]);
+                  setSongIdx(songIdx + 1);
+                } else {
+                  setCurrentSong(songList[0]);
+                  setSongIdx(0);
+                }
+              }}
               src={currentSong?.url}
+              loop={false}
               onPlay={(e) => console.log("onPlay")}
+              customControlsSection={[
+                <div>
+                  <img
+                    src={Three}
+                    alt="three"
+                    className="iconBig"
+                    onClick={() => {
+                      console.log("Three Dots");
+                    }}
+                  />
+                </div>,
+                <div>
+                  <img
+                    src={Prev}
+                    alt="three"
+                    className="icon"
+                    onClick={() => {
+                      if (songIdx > 0) {
+                        setCurrentSong(songList[songIdx - 1]);
+                        setSongIdx(songIdx - 1);
+                      } else {
+                        setCurrentSong(songList[songList.length - 1]);
+                        setSongIdx(songList.length - 1);
+                      }
+                    }}
+                  />
+                </div>,
+                <div>
+                  {isPlaying ? (
+                    <img
+                      src={Pause}
+                      alt="Pause"
+                      className="iconBig"
+                      onClick={() => {
+                        // pause the song
+                        playerRef.current.audio.current.pause();
+                        setIsPlaying(false);
+                      }}
+                    />
+                  ) : (
+                    <img
+                      src={Play}
+                      alt="Play"
+                      className="iconBig"
+                      onClick={() => {
+                        // play the song
+                        playerRef.current.audio.current.play();
+                        setIsPlaying(true);
+                      }}
+                    />
+                  )}
+                </div>,
+                <div>
+                  <img
+                    src={Next}
+                    alt="three"
+                    className="icon"
+                    onClick={() => {
+                      if (songIdx < songList.length - 1) {
+                        setCurrentSong(songList[songIdx + 1]);
+                        setSongIdx(songIdx + 1);
+                      } else {
+                        setCurrentSong(songList[0]);
+                        setSongIdx(0);
+                      }
+                    }}
+                  />
+                </div>,
+                <div>
+                  <img src={Volume} alt="Volume" className="iconBig" />
+                </div>,
+              ]}
             />
           </div>
         </div>
